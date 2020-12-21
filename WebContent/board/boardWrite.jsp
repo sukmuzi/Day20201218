@@ -45,7 +45,7 @@ ul {
 </head>
 <body>
 	<div id="boardWrite">
-		<form action="boardRegister.jsp" method="get">
+		<form action="boardRegister.bo" method="get">
 			<input type="hidden" name="readcount" value="0">
 			<ul>
 				<li><label for="제목">제목</label> <input type="text" name="title"

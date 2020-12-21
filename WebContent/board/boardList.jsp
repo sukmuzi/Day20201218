@@ -73,8 +73,8 @@ td {
 			%>
 		</table>
 	</div>
-	<a href="index.jsp?page=boardWrite" style="position: relative; left: -200px;">글쓰기</a>
-	<a href="index.jsp?page=boardSearchForm" style="position: relative; left: -200px;">검색</a>
-	<a href="index.jsp?page=boardUpdateForm" style="position: relative; left: -200px;">수정</a>
+	<a href="index.jsp?page=board/boardWrite" style="position: relative; left: -200px;">글쓰기</a>
+	<a href="index.jsp?page=board/boardSearchForm" style="position: relative; left: -200px;">검색</a>
+	<a href="index.jsp?page=board/boardUpdateForm" style="position: relative; left: -200px;">수정</a>
 </body>
 </html>
