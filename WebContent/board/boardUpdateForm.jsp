@@ -15,7 +15,7 @@
 </head>
 <body>
 	<div id="boardUpdateForm">
-		<form action="boardUpdateConfirm.jsp" method="get">
+		<form action="boardUpdateSearch.bo" method="get">
 			<ul>
 				<li><label for="수정할제목">수정할 제목</label> <input type="text"
 					name="searchTitle" autofocus="autofocus" required="required"

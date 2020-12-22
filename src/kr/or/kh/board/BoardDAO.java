@@ -119,7 +119,24 @@ public class BoardDAO {
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setInt(1, boarddto.getReadcount() + 1);
 		pstmt.setInt(2, boarddto.getNo());
-		
+
 		cnt = pstmt.executeUpdate();
+	}
+
+	public int boardUpdateFinal(BoardDTO boarddto, String searchTitle) throws SQLException {
+		conn = getConnection();
+
+		sql = "update boardsuk set title = ?, content = ?, author = ?, nal = ?, readcount = ? where title = ?";
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, boarddto.getTitle());
+		pstmt.setString(2, boarddto.getContent());
+		pstmt.setString(3, boarddto.getAuthor());
+		pstmt.setString(4, boarddto.getNal());
+		pstmt.setInt(5, boarddto.getReadcount());
+		pstmt.setString(6, searchTitle);
+
+		cnt = pstmt.executeUpdate();
+
+		return cnt;
 	}
 }
