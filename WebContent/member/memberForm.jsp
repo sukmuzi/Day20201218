@@ -37,7 +37,7 @@ h1 {
 <body>
 	<div id="memberForm">
 		<h1>회원가입</h1>
-		<form action="memberRegister.jsp" method="get">
+		<form action="memberRegister.mb" method="get">
 			<ul>
 				<li><label for="아이디">아이디</label> <input type="text" name="id"
 					size="20" maxlength="10" autofocus="autofocus" required="required"

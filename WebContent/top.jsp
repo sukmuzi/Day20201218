@@ -98,89 +98,66 @@ a:hover {
 	position: absolute;
 	top: 130px;
 	font-size: 15px;
-/* 	left: -30px; */
+	/* 	left: -30px; */
 }
 </style>
 </head>
 <body>
 
 	<div id="ALL">
-		<h1>
-			<img src="images/kh.png" class="kh">
-		</h1>
+		<img src="images/kh.png">
 		<div class="menu">
 			<ul>
-				<li><a href="index.jsp?page=haksaInfo">학사관리</a></li>
-				<li><a href="index.jsp?page=board/boardList">커뮤니티</a></li>
+				<li>
+					<%
+						String id = (String) session.getAttribute("id");
+						if (id != null) {
+							out.print("<a href=index.jsp?page=haksaInfo>학사소개</a>");
+						} else {
+							out.print("<a href=index.jsp onclick=alert('로그인하세요')>학사소개</a>");
+						}
+					%>
+				</li>
+
+				<li>
+					<%
+						if (id != null) {
+							out.print("<a href=boardList.bo>커뮤니티</a>");
+						} else {
+							out.print("<a href=index.jsp onclick=alert('로그인하세요')>커뮤니티</a>");
+						}
+					%>
+				</li>
 				<li><a href="mailForm.jsp">자바메일</a></li>
-				<li><a href="#">KHBCLASS</a></li>
+				<li><a href="#">KH반클래스</a></li>
 				<li><a href="#">포트폴리오</a></li>
 			</ul>
 		</div>
-		<div id="homeregister">
-			<a href="#">홈|</a> <a href="index.jsp?page=memberForm">회원가입|</a>
-
-			<%
-				String id = (String) session.getAttribute("id");
-				if (id != null) {
-					out.print("<a href='logout.jsp'>로그아웃|</a>");
-					out.print("<a href='index.jsp?page=memberList'>회원목록</a>");
-				} else {
-					out.print("<a href='index.jsp?page=loginForm'>로그인</a>");
-				}
-			%>
-			<div id="idlogin">
-				<%
-					if (id != null) {
-						out.print(id + "님 환영합니다.");
-					}
-				%>
-			</div>
-		</div>
 	</div>
-	<!-- 실시간 검색어 -->
+
+	<div id="homeregister">
+		<a href="index.jsp">홈|</a>
+		<%
+			if (id != null) {
+				out.print("<a href=memberLogout.mb>로그아웃|</a>");
+				out.print("<a href=memberList.mb>회원목록|</a>");
+				out.print("<a href=member/memberoutForm.jsp onclick=confirm('정말 탈퇴하시겠습니까?')>회원탈퇴</a><br>");
+			} else {
+				out.print("<a href=index.jsp?page=member/memberForm>회원가입|</a>");
+				out.print("<a href='index.jsp?page=member/loginForm'>로그인</a>");
+			}
+		%>
+	</div>
+
 	<div id="news1">
 		<ul id="news">
-			<li><a href="#n1">1 자바프로그래밍 </a></li>
-			<li><a href="#n2">2 웹프로그래밍 </a></li>
-			<li><a href="#n3">3 데이터베이스 </a></li>
-			<li><a href="#n4">4 오라클 </a></li>
-			<li><a href="#n5">5 MYSQL </a></li>
+			<li><a href="#n1">1 손흥민 </a></li>
+			<li><a href="#n2">2 박지성</a></li>
+			<li><a href="#n3">3 페이커</a></li>
+			<li><a href="#n4">4 월드컵</a></li>
+			<li><a href="#n5">5 축구</a></li>
 		</ul>
 	</div>
-	<script type="text/javascript">
-		$(function() {
-			$(".menu li a").wrapInner('<span class="out"></span>');
-
-			$(".menu li a").each(
-					function() {
-						$('<span class="over">' + $(this).text() + '</span>')
-								.appendTo(this);
-					});
-			$(".menu li a").hover(function() {
-				$(".out", this).stop().animate({
-					'top' : '45px'
-				}, 200);
-				$(".over", this).stop().animate({
-					'top' : '0px'
-				}, 200);
-
-			}, function() {
-				$(".out", this).stop().animate({
-					'top' : '0px'
-				}, 200);
-				$(".over", this).stop().animate({
-					'top' : '-45px'
-				}, 200);
-			});
-		});
-		$('#news').innerfade({
-			animationtype : 'slide',
-			speed : 750,
-			timeout : 2000,
-			type : 'sequence',
-			containerheight : '1em'
-		});
-	</script>
+	<script src="js/top.js"></script>
 </body>
 </html>

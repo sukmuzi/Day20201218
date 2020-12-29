@@ -69,19 +69,6 @@ ul#leftmenu .daegu6 a {
 		<li class="daegu5"><a href="">국어국문학과</a></li>
 		<li class="daegu6"><a href="">대구가톨릭대학교</a></li>
 	</ul>
-	<script>
-		$(function() {
-			$('#leftmenu a').css('marginLeft', '-110px');
-			$('#leftmenu > li').hover(function() {
-				$('a', $(this)).stop().animate({
-					'marginLeft' : '-1px'
-				}, 300);
-			}, function() {
-				$('a', $(this)).stop().animate({
-					'marginLeft' : '-85px'
-				}, 300);
-			});
-		});
-	</script>
+	<script src="js/left.js"></script>
 </body>
 </html>

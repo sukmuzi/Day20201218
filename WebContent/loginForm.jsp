@@ -21,7 +21,7 @@
 </head>
 <body>
 	<div id="loginForm">
-		<form action="login.jsp" method="get">
+		<form action="memberLogin.mb" method="get">
 			<ul>
 				<li><label for="아이디">아이디</label> <input type="text" name="id"
 					maxlength="20" size="20" autofocus="autofocus" required="required">

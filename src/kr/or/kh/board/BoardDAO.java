@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class BoardDAO {
+public class BoardDAO implements IBoard {
 	private Connection conn;
 	private BoardDTO boarddto;
 	private String sql;
@@ -43,6 +43,7 @@ public class BoardDAO {
 		}
 	}
 
+	@Override
 	public int boardRegister(BoardDTO boarddto) throws SQLException {
 		conn = getConnection();
 
@@ -59,6 +60,7 @@ public class BoardDAO {
 		return cnt;
 	}
 
+	@Override
 	public ArrayList<BoardDTO> boardList() throws SQLException {
 
 		conn = getConnection();
@@ -80,6 +82,7 @@ public class BoardDAO {
 		return boardList;
 	}
 
+	@Override
 	public int boardDelete(int no) throws SQLException {
 
 		conn = getConnection();
@@ -92,6 +95,7 @@ public class BoardDAO {
 
 	}
 
+	@Override
 	public BoardDTO boardSearch(String searchTitle) throws SQLException {
 		conn = getConnection();
 
@@ -112,6 +116,7 @@ public class BoardDAO {
 		return boarddto;
 	}
 
+	@Override
 	public void boardReadcount(BoardDTO boarddto) throws SQLException {
 		conn = getConnection();
 
@@ -123,6 +128,7 @@ public class BoardDAO {
 		cnt = pstmt.executeUpdate();
 	}
 
+	@Override
 	public int boardUpdateFinal(BoardDTO boarddto, String searchTitle) throws SQLException {
 		conn = getConnection();
 
@@ -139,4 +145,67 @@ public class BoardDAO {
 
 		return cnt;
 	}
+
+	@Override
+	public int totalCount() {// 페이징처리: 전체레코드 개수 구하기
+		int count = 0;
+		try {
+			conn = getConnection();
+			sql = "select count(*) from boardsuk";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				count = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return count;
+	}// 페이징처리: 전체레코드 개수 구하기
+
+	@Override
+	public PageTo page(int curPage) {// 페이지구현
+		PageTo pageTo = new PageTo();
+		int totalCount = totalCount();
+		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
+		try {
+			conn = getConnection();
+			sql = "select no, title, content, author, nal, readcount from boardsuk";
+			pstmt = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			// TYPE_SCROLL_INSENSITIVE:scroll은 가능하나, 변경된 사항은 적용되지 않음
+			// 양방향, 스크롤 시 업데이트 반영안함
+			// CONCUR_READ_ONLY :커서의 위치에서 정보 업데이트 불가,ResultSet의 변경이 불가능
+			rs = pstmt.executeQuery();
+			int perPage = pageTo.getPerPage();// 5
+			int skip = (curPage - 1) * perPage;
+			if (skip > 0) {
+				rs.absolute(skip);
+			}
+			// ResultSet의 absolute메소드를 이용하여 해당 페이지의 Cursor 의 위치로 이동...
+			for (int i = 0; i < perPage && rs.next(); i++) {
+				int no = rs.getInt("no");
+				String title = rs.getString("title");
+				String content = rs.getString("content");
+				String author = rs.getString("author");
+				String nal = rs.getString("nal");
+				int readCount = rs.getInt("readcount");
+
+				BoardDTO data = new BoardDTO();
+				data.setNo(no);
+				data.setTitle(title);
+				data.setContent(content);
+				data.setAuthor(author);
+				data.setNal(nal);
+				data.setReadcount(readCount);
+				list.add(data);
+			}
+			pageTo.setList(list);// ArrayList 저장
+			pageTo.setTotalCount(totalCount);// 전체레코드개수
+			pageTo.setCurPage(curPage);// 현재페이지
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return pageTo;
+	}// 페이지구현
+
 }

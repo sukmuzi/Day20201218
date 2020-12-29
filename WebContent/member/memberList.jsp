@@ -1,3 +1,5 @@
+<%@page import="kr.or.kh.member.MemberDTO"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.DriverManager"%>
@@ -39,33 +41,24 @@ td {
 				<th>주소</th>
 				<th>전화번호</th>
 			</tr>
+			<%
+				ArrayList<MemberDTO> memberList = (ArrayList<MemberDTO>)request.getAttribute("memberList");
+				for (int i = 0; i < memberList.size(); i++) {
+					MemberDTO memberDTO = memberList.get(i);
+			%>
+
 			<tr>
+				<td><%=memberDTO.getId()%></td>
+				<td><%=memberDTO.getPwd()%></td>
+				<td><%=memberDTO.getAddr()%></td>
+				<td><%=memberDTO.getTel()%></td>
 
-				<%
-					Class.forName("com.mysql.jdbc.Driver");
-					Connection conn = DriverManager.getConnection("jdbc:mysql://bbr123.cafe24.com:3306/bbr123", "bbr123",
-							"alstjr95!");
-
-					String sql = "select id, pwd, addr, tel from membersuk";
-					PreparedStatement pstmt = conn.prepareStatement(sql);
-					ResultSet rs = null;
-					rs = pstmt.executeQuery();
-
-					String id = null;
-					String pwd = null;
-					String addr = null;
-					String tel = null;
-
-					while (rs.next()) {
-						id = rs.getString("id");
-						pwd = rs.getString("pwd");
-						addr = rs.getString("addr");
-						tel = rs.getString("tel");
-						out.print("<td>" + id + "</td><td>" + pwd + "</td><td>" + addr + "</td><td>" + tel + "</td>");
-					}
-				%>
 			</tr>
+			<%
+				}
+			%>
 		</table>
+		<a href="index.jsp?page=member/memberUpdateForm">멤버수정</a>
 	</div>
 </body>
 </html>

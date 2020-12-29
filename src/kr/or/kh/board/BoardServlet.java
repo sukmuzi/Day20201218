@@ -55,17 +55,32 @@ public class BoardServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 
-		} else if (command.equals("/boardList.bo")) {
-			try {
-				boardList = boarddao.boardList();
-				RequestDispatcher dis = request.getRequestDispatcher("index.jsp?page=board/boardList");
-				request.setAttribute("boardList", boardList);
-				dis.forward(request, response);
-
-			} catch (SQLException e) {
-				e.printStackTrace();
+		} else if (command.equals("/boardList.bo")) {// 목록
+			int curPage = 1;// 기본페이지
+			if (request.getParameter("curPage") != null) {
+				curPage = Integer.parseInt(request.getParameter("curPage"));
 			}
-		} else if (command.equals("/boardDelete.bo")) {
+			PageTo boardList = boarddao.page(curPage);
+			RequestDispatcher dis = request.getRequestDispatcher("index.jsp?page=board/listPage");
+			request.setAttribute("page", boardList);
+			// listPage.jsp에서 목록 리스트 데이터 저장
+			request.setAttribute("list", boardList.getList());
+			// page.jsp에서 페이징 처리 데이터 저장
+			dis.forward(request, response);
+
+		}
+//		else if (command.equals("/boardList.bo")) {
+//			try {
+//				boardList = boarddao.boardList();
+//				RequestDispatcher dis = request.getRequestDispatcher("index.jsp?page=board/boardList");
+//				request.setAttribute("boardList", boardList);
+//				dis.forward(request, response);
+//
+//			} catch (SQLException e) {
+//				e.printStackTrace();
+//			}
+//		} 
+		else if (command.equals("/boardDelete.bo")) {
 			String no1 = request.getParameter("no");
 			int no = Integer.parseInt(no1);
 			try {
