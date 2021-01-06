@@ -2,9 +2,9 @@ package kr.or.kh.member;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -83,6 +83,22 @@ public class MemberServlet extends HttpServlet {
 		} else if (command.equals("/memberLogout.mb")) {
 			session.invalidate();
 			response.sendRedirect("index.jsp?page=kh");
+		} else if (command.equals("/idcheck.mb")) {
+			String searchId = request.getParameter("id");
+			try {
+				ResultSet rs = memberdao.memberIdCheckAll(searchId);
+				while (rs.next()) {
+					memberdto.setId(rs.getString("id"));
+				}
+				if (searchId.equals(memberdto.getId())) {
+					out.print("아이디 사용 불가능");
+				} else {
+					out.print("아이디 사용 가능");
+				}
+				out.print("<input type='button' value='종료' onclick='self.close()'>");
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 

@@ -43,10 +43,17 @@ ul {
 	left: 650px;
 }
 </style>
+<script type="text/javascript">
+	function popup(){
+		window.open("popup.jsp", "title", "width=400 height=500");
+	}
+</script>
 <meta charset="UTF-8">
 <title>KH정보교육원</title>
 </head>
-<body>
+<body onLoad="popup()">
+	<iframe frameborder='none' style='width: 180px; height: 220px;'
+		src='//kr03.tocplus007.com/iframeChatLoader.do?userId=sukmuzi&color=e6e6e6'></iframe>
 	<div id="top">
 		<jsp:include page="top.jsp" />
 	</div>

@@ -89,4 +89,13 @@ public class MemberDAO {
 		return memberdto;
 	}
 
+	public ResultSet memberIdCheckAll(String searchId) throws SQLException {
+		conn = getConnection();
+		sql = "select id from membersuk where id = ?";
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, searchId);
+		rs = pstmt.executeQuery();
+		
+		return rs;
+	}
 }

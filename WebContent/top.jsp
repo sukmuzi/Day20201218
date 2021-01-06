@@ -144,7 +144,7 @@ a:hover {
 				out.print("<a href=member/memberoutForm.jsp onclick=confirm('정말 탈퇴하시겠습니까?')>회원탈퇴</a><br>");
 			} else {
 				out.print("<a href=index.jsp?page=member/memberForm>회원가입|</a>");
-				out.print("<a href='index.jsp?page=member/loginForm'>로그인</a>");
+				out.print("<a href='index.jsp?page=loginForm'>로그인</a>");
 			}
 		%>
 	</div>

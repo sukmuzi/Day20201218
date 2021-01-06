@@ -31,6 +31,20 @@ h1 {
 	color: purple;
 }
 </style>
+<script src="../js/jquery-1.10.2.js"></script>
+<script type="text/javascript">
+	function idcheck() {
+		var id = $('#idVal').val();
+		if (id == "") {
+			alert('아이디를 입력해주세요.');
+		} else if (id == " ") {
+			alert('아이디를 입력해주세요.');
+		} else {
+			window.open("idcheck.mb?id=" + id, "win01", "width=400 height=500");
+		}
+		//alert(id);
+	}
+</script>
 <meta charset="UTF-8">
 <title>KHJSP</title>
 </head>
@@ -40,8 +54,9 @@ h1 {
 		<form action="memberRegister.mb" method="get">
 			<ul>
 				<li><label for="아이디">아이디</label> <input type="text" name="id"
-					size="20" maxlength="10" autofocus="autofocus" required="required"
-					placeholder="아이디 입력"></li>
+					id="idVal" size="20" maxlength="10" autofocus="autofocus"
+					required="required" placeholder="아이디 입력"><input
+					type="button" value="중복확인" onclick="idcheck()"></li>
 				<li><label for="패스워드">패스워드</label> <input type="password"
 					name="pwd" size="20" maxlength="10" placeholder="패스워드 입력"></li>
 				<li><label for="주소">주소</label> <input type="text" name="addr"
@@ -50,7 +65,8 @@ h1 {
 					name="tel" size="20" maxlength="20" placeholder=""></li>
 				<br>
 				<li><input type="image" src="images/member.png" class="kh01">
-					<a href="index.jsp?page=kh"><img src="images/cancel.PNG" class="kh01"></a></li>
+					<a href="index.jsp?page=kh"><img src="images/cancel.PNG"
+						class="kh01"></a></li>
 			</ul>
 		</form>
 	</div>
