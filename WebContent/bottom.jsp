@@ -27,7 +27,7 @@ td {
 				대일빌딩 2F, 3F 당산지원 : 서울특별시 영등포구 선유동2로 57 이레빌딩 (구관) 19F, 20F 이태원지원 :
 				서울특별시 용산구 보광로 73 한국폴리텍제1대학 울산지원 : 울산광역시 남구 신정2동 1640-6번지 현대스포츠센터2F
 				Copyright © 1998-2020 KH Information Educational Institute All Right
-				Reserved
+				Reserveddsadsadsadsa
 			</td>
 		</tr>
 	</table>
